@@ -4,6 +4,11 @@ const cart = function (params) {
   const closeBtn = cart.querySelector('.modal-close')
   const goodsContainer = document.querySelector('.long-goods-list')
   const cartTable = document.querySelector('.cart-table__goods')
+  const modalForm = document.querySelector('.modal-form')
+
+  const clientName = document.getElementsByName('nameCustomer')
+  const clientPhone = document.getElementsByName('phoneCustomer')
+
 
   const addToCart = (id) => {
     const goods = JSON.parse(localStorage.getItem('goods'))
@@ -93,6 +98,33 @@ const cart = function (params) {
       })
     });
   }
+
+  const sendForm = () => {
+    const cart = localStorage.getItem('cart') ?
+      JSON.parse(localStorage.getItem('cart')) : []
+    //можно будет отправлять в Телеграм как я раньше делал с помощью fetch или зарегистрировать свой json placeholder и грузить туда
+    //============================================================================================================
+    //============================================================================================================
+    console.log(cart)
+    console.log(clientName[0].value);
+    console.log(clientPhone[0].value);
+
+    //============================================================================================================
+    //============================================================================================================
+    //============================================================================================================
+
+
+    // fetch('https://jsonplaceholder.typicode.com/posts', {
+    //   method: 'POST',
+    //   body: cart
+    // })
+  }
+
+
+  modalForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    sendForm()
+  })
 
   cartBtn.addEventListener('click', (event) => {
     const cartArray = localStorage.getItem('cart') ?
