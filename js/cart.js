@@ -36,12 +36,30 @@ const cart = function (params) {
     renderCartGoods(JSON.parse(localStorage.getItem('cart')))
   }
   const plusCartItem = (id) => {
-    const cart = localStorage.getItem('cart')
-    localStorage.setItem('cart', JSON.stringify(cart))
+    const cart = JSON.parse(localStorage.getItem('cart'))
+
+    const newCart = cart.map(good => {
+      if (good.id === id) {
+        good.count++
+      }
+      return good
+    })
+
+    localStorage.setItem('cart', JSON.stringify(newCart))
+    renderCartGoods(JSON.parse(localStorage.getItem('cart')))
   }
   const minusCartItem = (id) => {
-    const cart = localStorage.getItem('cart')
+    const cart = JSON.parse(localStorage.getItem('cart'))
+
+    const newCart = cart.map(good => {
+      if (good.id === id) {
+        good.count--
+      }
+      return good
+    })
+
     localStorage.setItem('cart', JSON.stringify(cart))
+    renderCartGoods(JSON.parse(localStorage.getItem('cart')))
   }
 
   const renderCartGoods = (goods) => {
@@ -63,9 +81,9 @@ const cart = function (params) {
       tr.addEventListener('click', (e) => {
         console.log(e.target);
         if (e.target.classList.contains('cart-btn-minus')) {
-          console.log('minus');
+          minusCartItem(good.id)
         } else if (e.target.classList.contains('cart-btn-plus')) {
-          console.log('plus');
+          plusCartItem(good.id)
         } else if (e.target.classList.contains('cart-btn-delete')) {
           deleteCartItem(good.id)
         }
@@ -93,7 +111,6 @@ const cart = function (params) {
 
   }
   )
-
 
   if (goodsContainer) {
     goodsContainer.addEventListener('click', (event) => {
