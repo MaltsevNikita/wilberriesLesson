@@ -53,12 +53,14 @@ const cart = function (params) {
 
     const newCart = cart.map(good => {
       if (good.id === id) {
-        good.count--
+        if (good.count > 0) {
+          good.count--
+        }
       }
       return good
     })
 
-    localStorage.setItem('cart', JSON.stringify(cart))
+    localStorage.setItem('cart', JSON.stringify(newCart))
     renderCartGoods(JSON.parse(localStorage.getItem('cart')))
   }
 
